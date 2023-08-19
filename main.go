@@ -1,12 +1,20 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func main() {
+	dsn := "postgres://demystif:gppw2023@localhost:5432/gin-postgres"
+	_, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatal("Failed to connect the database")
+	}
 	router := gin.Default()
 	router.POST("/create", func(ctx *gin.Context) {
 		ctx.IndentedJSON(http.StatusCreated, "Created a certificate")
