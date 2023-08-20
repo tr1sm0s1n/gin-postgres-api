@@ -4,26 +4,29 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/DEMYSTIF/gin-postgres-api/controllers"
+	"github.com/DEMYSTIF/gin-postgres-api/db"
+	"github.com/DEMYSTIF/gin-postgres-api/models"
 	"github.com/gin-gonic/gin"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 )
 
 func main() {
-	dsn := "postgres://demystif:gppw2023@localhost:5432/gin-postgres"
-	_, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := db.Connect()
 	if err != nil {
 		log.Fatal("Failed to connect the database")
 	}
+
+	db.AutoMigrate(&models.Certificate{})
+
 	router := gin.Default()
 	router.POST("/create", func(ctx *gin.Context) {
-		ctx.IndentedJSON(http.StatusCreated, "Created a certificate")
+		controllers.CreateOne(ctx, db)
 	})
 	router.GET("/read", func(ctx *gin.Context) {
-		ctx.IndentedJSON(http.StatusOK, "Read all certificates")
+		controllers.ReadAll(ctx, db)
 	})
 	router.GET("/read/:id", func(ctx *gin.Context) {
-		ctx.IndentedJSON(http.StatusOK, "Read a certificate")
+		controllers.ReadOne(ctx, db)
 	})
 	router.PUT("/update/:id", func(ctx *gin.Context) {
 		ctx.IndentedJSON(http.StatusOK, "Updated a certificate")
