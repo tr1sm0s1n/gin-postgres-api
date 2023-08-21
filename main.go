@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 
 	"github.com/DEMYSTIF/gin-postgres-api/controllers"
 	"github.com/DEMYSTIF/gin-postgres-api/db"
@@ -29,10 +28,10 @@ func main() {
 		controllers.ReadOne(ctx, db)
 	})
 	router.PUT("/update/:id", func(ctx *gin.Context) {
-		ctx.IndentedJSON(http.StatusOK, "Updated a certificate")
+		controllers.UpdateOne(ctx, db)
 	})
 	router.DELETE("/delete/:id", func(ctx *gin.Context) {
-		ctx.IndentedJSON(http.StatusOK, "Deleted a certificate")
+		controllers.DeleteOne(ctx, db)
 	})
 	router.Run("localhost:8080")
 }
