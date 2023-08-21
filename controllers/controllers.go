@@ -27,7 +27,7 @@ func CreateOne(c *gin.Context, db *gorm.DB) {
 
 func ReadAll(c *gin.Context, db *gorm.DB) {
 	var certificates []models.Certificate
-	result := db.First(&certificates)
+	result := db.Find(&certificates)
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Internal Server Error"})
 		return
@@ -52,4 +52,57 @@ func ReadOne(c *gin.Context, db *gorm.DB) {
 	}
 
 	c.IndentedJSON(http.StatusOK, oldCertificate)
+}
+
+func UpdateOne(c *gin.Context, db *gorm.DB) {
+	var update models.Certificate
+	param := c.Param("id")
+	id, err := strconv.Atoi(param)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
+		return
+	}
+
+	result := db.First(&update, "id = ?", id)
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Not Found"})
+		return
+	}
+
+	if err := c.ShouldBindJSON(&update); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
+		return
+	}
+
+	result = db.Save(&update)
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Internal Server Error"})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, update)
+}
+
+func DeleteOne(c *gin.Context, db *gorm.DB) {
+	var trash models.Certificate
+	param := c.Param("id")
+	id, err := strconv.Atoi(param)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
+		return
+	}
+
+	result := db.First(&trash, "id = ?", id)
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Not Found"})
+		return
+	}
+
+	result = db.Delete(&models.Certificate{}, id)
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Internal Server Error"})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, trash)
 }
