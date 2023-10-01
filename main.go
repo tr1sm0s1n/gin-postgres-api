@@ -5,6 +5,7 @@ import (
 
 	"github.com/DEMYSTIF/gin-postgres-api/controllers"
 	"github.com/DEMYSTIF/gin-postgres-api/db"
+	"github.com/DEMYSTIF/gin-postgres-api/middlewares"
 	"github.com/DEMYSTIF/gin-postgres-api/models"
 	"github.com/gin-gonic/gin"
 )
@@ -18,6 +19,7 @@ func main() {
 	db.AutoMigrate(&models.Certificate{})
 
 	router := gin.Default()
+	router.Use(middlewares.Authority())
 	router.POST("/create", func(ctx *gin.Context) {
 		controllers.CreateOne(ctx, db)
 	})
