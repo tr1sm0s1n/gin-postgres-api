@@ -23,19 +23,19 @@ cd gin-postgres-api
 Start the database
 
 ```bash
-docker compose up -d
+make up
 ```
 
 View the database (optional)
 
 ```bash
-docker exec -it gin-postgres psql -d gin-postgres -U demystif -W
+make enter
 ```
 
 Start the application
 
 ```bash
-go run .
+make run
 ```
 
 For live reload, install Air (optional)
@@ -47,5 +47,17 @@ go install github.com/cosmtrek/air@latest
 Run the application with Air
 
 ```bash
-air
+make air
 ```
+
+## 📜 License
+
+Click [here](./LICENSE.md).
+
+## 🎗️ Contributing
+
+Click [here](./CONTRIBUTING.md).
+
+## ⚖️ Code of Conduct
+
+Click [here](./CODE_OF_CONDUCT.md).
