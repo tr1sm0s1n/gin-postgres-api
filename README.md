@@ -4,17 +4,18 @@ Gin API for CRUD operations in PostgreSQL.
 
 ## 🛠 Built With
 
-![Go](https://img.shields.io/badge/go-2F4F4F?style=for-the-badge&logo=go)
-![Gin](https://img.shields.io/badge/gin-2F4F4F?style=for-the-badge&logo=go)
-![PostgreSQL](https://img.shields.io/badge/postgresql-2F4F4F?style=for-the-badge&logo=postgresql)
-![Docker](https://img.shields.io/badge/docker-2F4F4F?style=for-the-badge&logo=docker)
+[![Go](https://img.shields.io/badge/go-dodgerblue?style=for-the-badge&logo=go&logoColor=white)](https://go.dev/)
+[![Gin](https://img.shields.io/badge/gin-dodgerblue?style=for-the-badge&logo=go&logoColor=white)](https://gin-gonic.com/)
+[![PostgreSQL](https://img.shields.io/badge/postgresql-darkslateblue?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/docker-navy?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+
 
 ## ⚙️ Run Locally
 
 Clone the project
 
 ```bash
-git clone https://github.com/DEMYSTIF/gin-postgres-api.git
+git clone https://github.com/tr1sm0s1n/gin-postgres-api.git
 cd gin-postgres-api
 ```
 
