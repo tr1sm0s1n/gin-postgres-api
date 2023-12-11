@@ -9,7 +9,6 @@ Gin API for CRUD operations in PostgreSQL.
 [![PostgreSQL](https://img.shields.io/badge/postgresql-darkslateblue?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/docker-navy?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
-
 ## ⚙️ Run Locally
 
 Clone the project
@@ -31,22 +30,22 @@ View the database (optional)
 make enter
 ```
 
-Start the application
+Run the application
 
 ```bash
 make run
 ```
 
-For live reload, install Air (optional)
-
-```bash
-go install github.com/cosmtrek/air@latest
-```
-
-Run the application with Air
+For live reload, install air (optional)
 
 ```bash
 make air
+```
+
+Run the application in watch mode
+
+```bash
+make dev
 ```
 
 ## 📜 License
