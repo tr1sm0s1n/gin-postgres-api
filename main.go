@@ -3,11 +3,11 @@ package main
 import (
 	"log"
 
-	"github.com/DEMYSTIF/gin-postgres-api/controllers"
-	"github.com/DEMYSTIF/gin-postgres-api/db"
-	"github.com/DEMYSTIF/gin-postgres-api/middlewares"
-	"github.com/DEMYSTIF/gin-postgres-api/models"
 	"github.com/gin-gonic/gin"
+	"github.com/tr1sm0s1n/gin-postgres-api/controllers"
+	"github.com/tr1sm0s1n/gin-postgres-api/db"
+	"github.com/tr1sm0s1n/gin-postgres-api/middlewares"
+	"github.com/tr1sm0s1n/gin-postgres-api/models"
 )
 
 func main() {

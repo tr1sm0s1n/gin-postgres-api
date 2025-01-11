@@ -1,4 +1,4 @@
-module github.com/DEMYSTIF/gin-postgres-api
+module github.com/tr1sm0s1n/gin-postgres-api
 
 go 1.22.0
 

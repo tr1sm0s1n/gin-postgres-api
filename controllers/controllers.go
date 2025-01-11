@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/DEMYSTIF/gin-postgres-api/models"
 	"github.com/gin-gonic/gin"
+	"github.com/tr1sm0s1n/gin-postgres-api/models"
 	"gorm.io/gorm"
 )
 
