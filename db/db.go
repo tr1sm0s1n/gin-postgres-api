@@ -6,7 +6,7 @@ import (
 )
 
 func Connect() (*gorm.DB, error) {
-	dsn := "postgres://tr1sm0s1n:gppw2023@localhost:5432/gin-postgres"
+	dsn := "postgres://tr1sm0s1n:gppw2025@localhost:5432/fiber-postgres"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	return db, err
 }

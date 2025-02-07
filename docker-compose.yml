@@ -1,13 +1,11 @@
-version: "3.8"
-
 services:
   postgres:
     image: postgres:15
-    container_name: gin-postgres
+    container_name: fiber-postgres
     environment:
-      - POSTGRES_USER=demystif
-      - POSTGRES_PASSWORD=gppw2023
-      - POSTGRES_DB=gin-postgres
+      - POSTGRES_USER=tr1sm0s1n
+      - POSTGRES_PASSWORD=gppw2025
+      - POSTGRES_DB=fiber-postgres
       - POSTGRES_PORT=5432
     ports:
       - 5432:5432
@@ -16,4 +14,4 @@ services:
 
 volumes:
   postgres:
-    name: gin-postgres
+    name: fiber-postgres

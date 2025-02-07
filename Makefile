@@ -33,7 +33,7 @@ down:
 .PHONY: enter
 # Enter the database.
 enter:
-	$(DOCKER) exec -it gin-postgres psql -d gin-postgres -U demystif -W
+	$(DOCKER) exec -it fiber-postgres psql -d fiber-postgres -U tr1sm0s1n -W
 
 .PHONY: tidy
 # Tidy the Go module.
