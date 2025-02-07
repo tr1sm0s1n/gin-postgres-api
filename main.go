@@ -3,11 +3,12 @@ package main
 import (
 	"log"
 
-	"github.com/gin-gonic/gin"
-	"github.com/tr1sm0s1n/gin-postgres-api/controllers"
-	"github.com/tr1sm0s1n/gin-postgres-api/db"
-	"github.com/tr1sm0s1n/gin-postgres-api/middlewares"
-	"github.com/tr1sm0s1n/gin-postgres-api/models"
+	"github.com/KBA-Learning/fiber-postgres-api/controllers"
+	"github.com/KBA-Learning/fiber-postgres-api/db"
+	"github.com/KBA-Learning/fiber-postgres-api/middlewares"
+	"github.com/KBA-Learning/fiber-postgres-api/models"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -18,22 +19,26 @@ func main() {
 
 	db.AutoMigrate(&models.Certificate{})
 
-	router := gin.Default()
-	router.Use(middlewares.Authority())
-	router.POST("/create", func(ctx *gin.Context) {
-		controllers.CreateOne(ctx, db)
+	app := fiber.New()
+	app.Use(logger.New())
+	app.Use(func(ctx *fiber.Ctx) error {
+		return middlewares.Authority(ctx)
 	})
-	router.GET("/read", func(ctx *gin.Context) {
-		controllers.ReadAll(ctx, db)
+
+	app.Post("/create", func(ctx *fiber.Ctx) error {
+		return controllers.CreateOne(ctx, db)
 	})
-	router.GET("/read/:id", func(ctx *gin.Context) {
-		controllers.ReadOne(ctx, db)
+	app.Get("/read", func(ctx *fiber.Ctx) error {
+		return controllers.ReadAll(ctx, db)
 	})
-	router.PUT("/update/:id", func(ctx *gin.Context) {
-		controllers.UpdateOne(ctx, db)
+	app.Get("/read/:id", func(ctx *fiber.Ctx) error {
+		return controllers.ReadOne(ctx, db)
 	})
-	router.DELETE("/delete/:id", func(ctx *gin.Context) {
-		controllers.DeleteOne(ctx, db)
+	app.Put("/update/:id", func(ctx *fiber.Ctx) error {
+		return controllers.UpdateOne(ctx, db)
 	})
-	router.Run("localhost:8080")
+	app.Delete("/delete/:id", func(ctx *fiber.Ctx) error {
+		return controllers.DeleteOne(ctx, db)
+	})
+	app.Listen(":8080")
 }
