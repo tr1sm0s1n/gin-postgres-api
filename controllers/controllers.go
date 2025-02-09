@@ -4,105 +4,93 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gin-gonic/gin"
-	"github.com/tr1sm0s1n/gin-postgres-api/models"
+	"github.com/tr1sm0s1n/fiber-postgres-api/models"
+	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
-func CreateOne(c *gin.Context, db *gorm.DB) {
+func CreateOne(c *fiber.Ctx, db *gorm.DB) error {
 	var newCertificate models.Certificate
-	if err := c.ShouldBindJSON(&newCertificate); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
-		return
+	if err := c.BodyParser(&newCertificate); err != nil {
+		return c.Status(http.StatusBadRequest).SendString(err.Error())
 	}
 
 	result := db.Create(&newCertificate)
 	if result.Error != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Duplicate Key"})
-		return
+		return c.Status(http.StatusBadRequest).SendString(result.Error.Error())
 	}
 
-	c.IndentedJSON(http.StatusCreated, newCertificate)
+	return c.Status(http.StatusCreated).JSON(newCertificate)
 }
 
-func ReadAll(c *gin.Context, db *gorm.DB) {
+func ReadAll(c *fiber.Ctx, db *gorm.DB) error {
 	var certificates []models.Certificate
 	result := db.Find(&certificates)
 	if result.Error != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Internal Server Error"})
-		return
+		return c.Status(http.StatusInternalServerError).SendString(result.Error.Error())
 	}
 
-	c.IndentedJSON(http.StatusOK, certificates)
+	return c.Status(http.StatusOK).JSON(certificates)
 }
 
-func ReadOne(c *gin.Context, db *gorm.DB) {
+func ReadOne(c *fiber.Ctx, db *gorm.DB) error {
 	var oldCertificate models.Certificate
-	param := c.Param("id")
+	param := c.Params("id")
 	id, err := strconv.Atoi(param)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
-		return
+		return c.Status(http.StatusBadRequest).SendString(err.Error())
 	}
 
 	result := db.First(&oldCertificate, "id = ?", id)
 	if result.Error != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Not Found"})
-		return
+		return c.Status(http.StatusNotFound).SendString("Not Found")
 	}
 
-	c.IndentedJSON(http.StatusOK, oldCertificate)
+	return c.Status(http.StatusOK).JSON(oldCertificate)
 }
 
-func UpdateOne(c *gin.Context, db *gorm.DB) {
+func UpdateOne(c *fiber.Ctx, db *gorm.DB) error {
 	var update models.Certificate
-	param := c.Param("id")
+	param := c.Params("id")
 	id, err := strconv.Atoi(param)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
-		return
+		return c.Status(http.StatusBadRequest).SendString(err.Error())
 	}
 
 	result := db.First(&update, "id = ?", id)
 	if result.Error != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Not Found"})
-		return
+		return c.Status(http.StatusNotFound).SendString("Not Found")
 	}
 
-	if err := c.ShouldBindJSON(&update); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
-		return
+	if err := c.BodyParser(&update); err != nil {
+		return c.Status(http.StatusBadRequest).SendString(err.Error())
 	}
 
 	result = db.Save(&update)
 	if result.Error != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Internal Server Error"})
-		return
+		return c.Status(http.StatusInternalServerError).SendString(result.Error.Error())
 	}
 
-	c.IndentedJSON(http.StatusOK, update)
+	return c.Status(http.StatusOK).JSON(update)
 }
 
-func DeleteOne(c *gin.Context, db *gorm.DB) {
+func DeleteOne(c *fiber.Ctx, db *gorm.DB) error {
 	var trash models.Certificate
-	param := c.Param("id")
+	param := c.Params("id")
 	id, err := strconv.Atoi(param)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Bad Request"})
-		return
+		return c.Status(http.StatusBadRequest).SendString(err.Error())
 	}
 
 	result := db.First(&trash, "id = ?", id)
 	if result.Error != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Not Found"})
-		return
+		return c.Status(http.StatusNotFound).SendString("Not Found")
 	}
 
 	result = db.Delete(&models.Certificate{}, id)
 	if result.Error != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Internal Server Error"})
-		return
+		return c.Status(http.StatusInternalServerError).SendString(result.Error.Error())
 	}
 
-	c.IndentedJSON(http.StatusOK, trash)
+	return c.Status(http.StatusOK).JSON(trash)
 }

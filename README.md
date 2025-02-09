@@ -1,10 +1,11 @@
-# Gin-Postgres-API
+# Fiber-Postgres-API
 
-Gin API for CRUD operations in PostgreSQL.
+Fiber API for CRUD operations in PostgreSQL.
 
 ## 🛠 Built With
+
 [![Go Badge](https://img.shields.io/badge/Go-00ADD8?logo=go&logoColor=fff&style=for-the-badge)](https://go.dev/)
-[![Gin Badge](https://img.shields.io/badge/Gin-008ECF?logo=gin&logoColor=fff&style=for-the-badge)](https://gin-gonic.com/)
+[![Fiber Badge](https://img.shields.io/badge/Fiber-00ADD8?logo=go&logoColor=fff&style=for-the-badge)](https://gofiber.io/)
 [![PostgreSQL Badge](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=fff&style=for-the-badge)](https://www.postgresql.org/)
 [![Docker Badge](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=for-the-badge)](https://www.docker.com/)
 
@@ -13,8 +14,8 @@ Gin API for CRUD operations in PostgreSQL.
 Clone the project
 
 ```bash
-git clone https://github.com/tr1sm0s1n/gin-postgres-api.git
-cd gin-postgres-api
+git clone https://github.com/tr1sm0s1n/fiber-postgres-api.git
+cd fiber-postgres-api
 ```
 
 Start the database

@@ -3,18 +3,15 @@ package middlewares
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 )
 
-func Authority() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		authorizationHeader := c.GetHeader("Authorization")
-		expectedToken := "token"
-		if authorizationHeader != "Bearer "+expectedToken {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized"})
-			return
-		}
-
-		c.Next()
+func Authority(c *fiber.Ctx) error {
+	authorizationHeader := c.Get("Authorization")
+	expectedToken := "token"
+	if authorizationHeader != "Bearer "+expectedToken {
+		return c.Status(http.StatusUnauthorized).SendString("Unauthorized")
 	}
+
+	return c.Next()
 }

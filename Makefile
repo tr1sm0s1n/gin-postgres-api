@@ -8,7 +8,7 @@ DOCKER ?= docker
 # Install air for live-reload.
 air:
 	mkdir -p bin
-	GOBIN=$(CURRENT_DIR)/bin $(GO) install github.com/cosmtrek/air@latest
+	GOBIN=$(CURRENT_DIR)/bin $(GO) install github.com/air-verse/air@latest
 
 .PHONY: dev
 # Run the application in watch mode.
@@ -33,7 +33,7 @@ down:
 .PHONY: enter
 # Enter the database.
 enter:
-	$(DOCKER) exec -it gin-postgres psql -d gin-postgres -U demystif -W
+	$(DOCKER) exec -it fiber-postgres psql -d fiber-postgres -U tr1sm0s1n -W
 
 .PHONY: tidy
 # Tidy the Go module.
