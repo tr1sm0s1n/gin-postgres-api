@@ -3,10 +3,10 @@ package main
 import (
 	"log"
 
-	"github.com/KBA-Learning/fiber-postgres-api/controllers"
-	"github.com/KBA-Learning/fiber-postgres-api/db"
-	"github.com/KBA-Learning/fiber-postgres-api/middlewares"
-	"github.com/KBA-Learning/fiber-postgres-api/models"
+	"github.com/tr1sm0s1n/fiber-postgres-api/controllers"
+	"github.com/tr1sm0s1n/fiber-postgres-api/db"
+	"github.com/tr1sm0s1n/fiber-postgres-api/middlewares"
+	"github.com/tr1sm0s1n/fiber-postgres-api/models"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )

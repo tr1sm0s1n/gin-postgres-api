@@ -14,7 +14,7 @@ Fiber API for CRUD operations in PostgreSQL.
 Clone the project
 
 ```bash
-git clone https://github.com/KBA-Learning/fiber-postgres-api.git
+git clone https://github.com/tr1sm0s1n/fiber-postgres-api.git
 cd fiber-postgres-api
 ```
 

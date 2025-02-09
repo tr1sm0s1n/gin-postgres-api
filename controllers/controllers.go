@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/KBA-Learning/fiber-postgres-api/models"
+	"github.com/tr1sm0s1n/fiber-postgres-api/models"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
